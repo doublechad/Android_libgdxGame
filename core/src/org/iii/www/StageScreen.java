@@ -19,6 +19,7 @@ import org.iii.www.actors.GroundActor;
 import org.iii.www.actors.MainActor;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by User on 2018/3/21.
@@ -32,6 +33,7 @@ public class StageScreen extends Background{
     private BoxActor boxActor;
     private ArrayList<Texture> textrueList ;
     private  World world;
+    private LinkedList<BoxActor> boxActors = new LinkedList<BoxActor>();
     public StageScreen(MainGame mainGame) {
         this.mainGame=mainGame;
         //場景
@@ -53,10 +55,14 @@ public class StageScreen extends Background{
     public void show() {
         mainActor= new MainActor(world,textrueList.get(0),0.5f,4f);
         groundActor= new GroundActor(world,textrueList.get(2),0,1000,0);
-        boxActor = new BoxActor(world,textrueList.get(1),8,1);
+        for(int i=0;i<20;i++){
+            boxActor = new BoxActor(world,textrueList.get(1),i*8,1);
+            stage.addActor(boxActor);
+        }
+
         stage.addActor(mainActor);
         stage.addActor(groundActor);
-        stage.addActor(boxActor);
+
     }
 
     @Override
@@ -75,8 +81,10 @@ public class StageScreen extends Background{
     public void hide() {
         groundActor.detach();
         groundActor.remove();
-        boxActor.detach();
-        boxActor.remove();
+        for(BoxActor actor:boxActors){
+            actor.detach();
+            actor.remove();
+        }
         mainActor.detach();
         mainActor.remove();
 
