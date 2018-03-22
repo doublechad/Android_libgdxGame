@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import org.iii.www.Background;
 import org.iii.www.MainGame;
 import org.iii.www.actors.BoxActor;
+import org.iii.www.actors.BulletActor;
 import org.iii.www.actors.GroundActor;
 import org.iii.www.actors.MainActor;
 
@@ -34,6 +35,7 @@ public class StageScreen extends Background{
     private ArrayList<Texture> textrueList ;
     private  World world;
     private LinkedList<BoxActor> boxActors = new LinkedList<BoxActor>();
+    private LinkedList<BulletActor> bulletActors = new LinkedList<BulletActor>();
     public StageScreen(MainGame mainGame) {
         this.mainGame=mainGame;
         //場景
@@ -44,9 +46,11 @@ public class StageScreen extends Background{
         Texture t1 =mainGame.getAssetManager().get("skating.png");
         Texture t2 =mainGame.getAssetManager().get("box.png");
         Texture t3 =mainGame.getAssetManager().get("ground.png");
+        Texture t4 =mainGame.getAssetManager().get("bullet.jpg");
         textrueList.add(t1);
         textrueList.add(t2);
         textrueList.add(t3);
+        textrueList.add(t4);
         world.setContactListener(new GameListener());
 
     }
@@ -69,6 +73,19 @@ public class StageScreen extends Background{
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0.5f,0.5f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if(Gdx.input.justTouched()){
+            Gdx.app.log("chad",Gdx.input.getX()+"");
+            Gdx.app.log("chad",Gdx.input.getY()+"");
+            Vector2 point = new Vector2(Gdx.input.getX(),Gdx.input.getY());
+            Vector2 vector2=new Vector2(mainActor.getX()+mainActor.getWidth()
+                                            ,mainActor.getY()+mainActor.getHeight());
+            BulletActor b1 =new BulletActor(textrueList.get(3),vector2,point);
+            float angle = point.angleRad(vector2);
+
+            Gdx.app.log("chad","角度:"+angle);
+            bulletActors.add(b1);
+            stage.addActor(b1);
+        }
        stage.act();
        if(mainActor.getX()>300&&mainActor.alive) {
            stage.getCamera().translate(delta * MyAPI.PLAYER_SPEED * MyAPI.PIXE_TRANSFOR_MILE, 0, 0);
@@ -81,6 +98,9 @@ public class StageScreen extends Background{
     public void hide() {
         groundActor.detach();
         groundActor.remove();
+        for(BulletActor ba:bulletActors){
+            ba.remove();
+        }
         for(BoxActor actor:boxActors){
             actor.detach();
             actor.remove();

@@ -19,6 +19,7 @@ public class MainGame extends Game {
 		assetManager.load("skating.png", Texture.class);
 		assetManager.load("box.png", Texture.class);
 		assetManager.load("ground.png", Texture.class);
+		assetManager.load("bullet.jpg", Texture.class);
 		//結束載入
 		assetManager.finishLoading();
 		setScreen(new StageScreen(this));

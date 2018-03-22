@@ -49,17 +49,20 @@ public class MainActor extends Actor {
         if(Gdx.input.isTouched()&&alive){
             if(!jumping)jump();
          }
-         if(alive){
-            //取得目前的Y向量
-            float speedY =body.getLinearVelocity().y;
-            body.setLinearVelocity(MyAPI.PLAYER_SPEED,speedY);
-         }
+//         if(alive){
+//            //取得目前的Y向量
+//            float speedY =body.getLinearVelocity().y;
+//            body.setLinearVelocity(MyAPI.PLAYER_SPEED,speedY);
+//         }
 
 
     }
     private void jump(){
         Vector2 postion =body.getPosition();
         body.applyLinearImpulse(0.0f,3,postion.x,postion.y,true);
+
+    }
+    private void fire(){
 
     }
     @Override
