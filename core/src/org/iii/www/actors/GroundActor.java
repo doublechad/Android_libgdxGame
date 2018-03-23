@@ -32,12 +32,12 @@ public class GroundActor extends Actor{
         //設置角色形狀
         PolygonShape shape = new PolygonShape();
         //設置角色長寬 單位為 公尺 長半徑0.5寬半徑0.5
-        shape.setAsBox(width/2,0.5f);
+        shape.setAsBox(width/2,2.0f);
         //設置腳色載具
         fixture=body.createFixture(shape,1);
         fixture.setUserData("ground");
-        setSize(MyAPI.PIXE_TRANSFOR_MILE*width,MyAPI.PIXE_TRANSFOR_MILE*1);
-        setPosition((body.getPosition().x-width/2)*MyAPI.PIXE_TRANSFOR_MILE,(body.getPosition().y-0.5f)*MyAPI.PIXE_TRANSFOR_MILE);
+        setSize(MyAPI.PIXE_TRANSFOR_MILE*width,MyAPI.PIXE_TRANSFOR_MILE*2);
+        setPosition((body.getPosition().x-width/2)*MyAPI.PIXE_TRANSFOR_MILE,(body.getPosition().y)*MyAPI.PIXE_TRANSFOR_MILE);
     }
 
     @Override
